@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스크롤 진행상태바</title>
+    <style>
+        body {
+            height: 5000px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .scroll_bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            background-color: chocolate;
+            height: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll_bar"></div>    
+    <script>
+        // 윈도우에 스크롤 했을 때 이벤트를 발생시킬것
+        // 스크롤바를 가져오기
+        // 윈도우에서 얼마나 스크롤 했는지를 scrollY에 담아줌
+        // 바디의 스크롤 가능한 높이 - 브라우저 높이를 scrollBar라는 변수에 담아주기
+        // 
+
+        window.addEventListener("scroll",()=>{
+            const scrollContent = document.querySelector(".scroll_bar");
+            const scrollY = window.scrollY;
+            const scrollHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent =  (scrollY/scrollHeight)*100;
+            console.log(scrollPercent);
+
+            scrollContent.style.width = `${scrollPercent}%`;
+        })
+    </script>
+</body>
+</html>

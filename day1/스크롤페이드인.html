@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 5000px;
+        }
+
+        .content_container {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .content {
+            font-size: 100px;
+            text-align: center;
+            margin: 600px 0;   
+        }
+
+        .to_top {
+            transform: translateY(-200px);
+        }
+
+        .to_bottom {
+            transform: translateY(200px);
+        }
+
+        .to_left {
+            transform: translateX(-200px);
+        }
+
+        .to_right {
+            transform: translateX(200px);
+        }
+
+        .to_right_bottom {
+            transform: translate(200px,200px);
+        }
+
+        .to_left_bottom {
+            transform: translate(-200px,200px);
+        }
+
+        .fade {
+            opacity: 0;
+            transition: 1s;
+        }
+
+        .in {
+            transform: none;
+            opacity: 1;
+        }
+
+        .box {
+            display: flex;
+        }
+
+        .delay:nth-child(2) {
+            transition-delay: 0.3s;
+        }
+        .delay:nth-child(3) {
+            transition-delay: 0.6s;
+        }
+    </style>
+</head>
+<body>
+    <div class="content_container">
+        <h2 class="content fade to_top">당신의 새로운 MacBook Air</h2>
+        <h2 class="content fade to_bottom">16모델</h2>
+        <div class="box">
+            <h2 class="content fade to_bottom delay">가</h2>
+            <h2 class="content fade to_bottom delay">나</h2>
+            <h2 class="content fade to_bottom delay">다</h2>
+        </div>
+        <h2 class="content fade to_left">10코어 CPU / 8코어 GPU</h2>
+        <h2 class="content fade to_right">16GB 통합 메모리</h2>
+        <h2 class="content fade to_right_bottom">256GB SSD 저장장치</h2>
+        <h2 class="content fade to_left_bottom">2,190,000</h2>
+    </div>
+
+    <script>
+        // content들을 가져오기 getElementByClassName으로
+        // 윈도우에 이벤트를 추가할것이다. 스크롤 했을 때
+        // winH 라는 변수를 만들어 브라우저의 높이를 대입하기
+        // 반복문을 사용하여 content들의 개수보다 작으면 그만큼 반복시킨 후
+        // 콘텐츠들의 top값을 구해 contentTop에 넣는다.
+        // 만약 contentTop에서 브라우저의 높이를 뺀 값이 0보다 작다면 ( 브라우저에 보여지고 있는 상태라면~)
+        
+        const content = document.getElementsByClassName("content");
+        window.addEventListener("scroll",()=>{
+            const winH = window.innerHeight;
+            for(let i = 0; i < content.length; i++){
+                const contentTop = content[i].getBoundingClientRect().top;
+                if(contentTop - winH < 0){
+                    content[i].classList.add("in");
+                }else {
+                    content[i].classList.remove("in");
+                }
+            }
+        })
+    </script>
+</body>
+</html>
