@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>바닐라슬라이드</title>
+    <style>
+        .slide_container {
+            width: 1000px;
+            height: 500px;
+            border: 3px solid salmon;
+            box-sizing: border-box;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 100px;
+            line-height: 500px;
+            color: salmon;
+        }
+
+        .btn_box {
+            width: 1000px;
+            display: flex;
+            margin: 50px auto;
+            justify-content: space-between;
+        }
+
+        .btn_box > button {
+            width: 100px;
+            height: 50px;
+            background-color: salmon;
+            color: #fff;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide_container"></div>
+
+    <div class="btn_box">
+        <button>prev</button>
+        <button>next</button>
+    </div>
+
+    <script>
+        const viewBox = document.querySelector(".slide_container");
+        const btns = document.querySelector(".btn_box");
+        let index = 1;
+
+        viewBox.innerHTML = index;
+
+        // 함수 2개를 만들것
+        // 이전으로 이동하는 함수 / 이후로 이동하는 함수
+        
+        // 이전으로 이동하는 함수 기능
+        // index가 1과 같다면 인덱스에 4를 대입할것이고, 인덱스가 1이 아니라면 --로 감소할것
+        // 4를 대입하거나 감소가 끝나면 4나 감소한 숫자를 다시 viewBox에 넣어줌
+
+        // 이후로 이동하는 함수 기능
+        // index가 4와 같다면 index에 1을 대입하고 아니라면 index를 증가시킴
+        // 1을 대입하거나 증가시켰다면 다시 viewBox에 index를 넣어줌
+
+        console.log(btns.children[0]);
+        btns.children[0].addEventListener("click",prev);
+        btns.children[1].addEventListener("click",next);
+
+        function prev(){
+            if(index === 1){
+                index = 4;
+            }else{
+                index--;
+            }
+            viewBox.innerHTML = index;
+        }
+
+        function next(){
+            if(index === 4){
+                index = 1;
+            }else{
+                index++;
+            }
+            viewBox.innerHTML = index;
+        }
+    </script>
+</body>
+</html>
