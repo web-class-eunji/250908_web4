@@ -100,7 +100,7 @@
         const buttons = document.querySelector(".slide_btns"); // 닷을 포함한 전체 버튼 박스
         const viewBox = document.querySelector(".slide_container"); // 최종적으로 보여질 박스
         const slide = document.querySelector(".slide"); //ul
-        const dotBox = document.querySelector("dot_box"); //닷이 들어갈 빈 div
+        const dotBox = document.querySelector(".dot_box"); //닷이 들어갈 빈 div
         const sliderWidth = 1000; //슬라이드 한 장의 너비
         let moveCheck = true; //이동중임을 체크하는 변수 
 
@@ -129,6 +129,7 @@
         function moveSlide(time){
             slide.style.transition = time + 'ms'; // 1000 -> 1000ms 1초
             slide.style.transform = `translateX(-${index*sliderWidth}px)`;
+            updateDot();
         }
 
         //------------------------------------------------------------------------------------
@@ -162,6 +163,40 @@
                 moveSlide(1000);
             }
         }
+
+        //------------------------------------------------------------------------------------
+        console.log(sliderLength);
+        for(let i = 0;i < sliderLength-2; i++){
+            const makeDiv = document.createElement('div');
+            makeDiv.classList.add("dot");
+            dotBox.appendChild(makeDiv);
+
+            makeDiv.addEventListener("click",()=>{
+                index = i + 1;
+                moveSlide(1000);
+            })
+        }
+
+        dotBox.children[0].classList.add("active"); // 브라우저를 열었을 때 1번 슬라이드가 먼저 보여야하니 dot의 첫번째에 붙여놓기
+        function updateDot(){
+            // for문을 사용하여 보여지는 슬라이드의 개수보다(4개) 작으면 그만큼 증가
+            // dot박스의 몇번째에 붙어있는 active를 뗀다.
+            for(let i = 0; i < sliderLength-2; i++){
+                dotBox.children[i].classList.remove("active");
+                if(index === 0){
+                    dotBox.children[sliderLength-3].classList.add("active");
+                }
+                // 마지막 복제한 슬라이드인 1번이 보이고 있다면 dot은 어디로 가야할까?
+                // dot은 제일 처음에 붙어야 한다
+                else if(index === sliderLength-1){
+                    dotBox.children[0].classList.add("active");
+                }else{
+                    dotBox.children[index-1].classList.add("active");
+                }
+            }
+
+        }
+
 
         buttons.children[0].addEventListener('click',prev);
         buttons.children[2].addEventListener('click',next);
