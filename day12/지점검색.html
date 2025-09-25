@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;            
+            padding: 0;
+        }
+
+        .map_section {
+            display: flex;
+            background-color: rgb(191, 166, 126);
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            color: #fff;
+        }
+        
+        .left > p {
+            font-size: 24px;
+        }
+
+        .left > h1 {
+            font-size: 60px;
+            margin: 32px 0;
+        }
+
+        .place_search > h2 {
+            font-size: 24px;
+        }
+
+        .search_icon,
+        svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .input,
+        .search_icon {
+            margin: 0;
+            padding: 0;
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 20px;
+        }
+
+        .input_box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #fff;
+            padding: 8px 16px;
+            border-radius: 16px;
+        }
+
+        .map {
+            border-radius: 16px;
+        }
+
+        .input::placeholder {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="map_section">
+        <div class="left">
+            <p>런던베이글뮤지엄</p>
+            <h1>London Bagel Museum</h1>
+
+            <iframe class="map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d405464.47685208125!2d126.32311039962812!3d37.44439850041862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca34a4c0e3119%3A0x414693a4aaacf8dc!2z65-w642Y67Kg7J206riA666k7KeA7JeEIOuPhOyCsOygkA!5e0!3m2!1sko!2skr!4v1758769686027!5m2!1sko!2skr"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <div class="place_search">
+            <h2>지점 찾기</h2>
+            <div class="input_box">
+                <input type="text" id="input_text" class="input" placeholder="지역을 입력하세요">
+                <button class="search_icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                        <path d="M21.0002 21L16.6572 16.657M16.6572 16.657C17.4001 15.9141 17.9894 15.0321 18.3914 14.0615C18.7935 13.0909 19.0004 12.0506 19.0004 11C19.0004 9.94936 18.7935 8.90905 18.3914 7.93842C17.9894 6.96779 17.4001 6.08585 16.6572 5.34296C15.9143 4.60007 15.0324 4.01078 14.0618 3.60874C13.0911 3.20669 12.0508 2.99976 11.0002 2.99976C9.9496 2.99976 8.90929 3.20669 7.93866 3.60874C6.96803 4.01078 6.08609 4.60007 5.34321 5.34296C3.84288 6.84329 3 8.87818 3 11C3 13.1217 3.84288 15.1566 5.34321 16.657C6.84354 18.1573 8.87842 19.0002 11.0002 19.0002C13.122 19.0002 15.1569 18.1573 16.6572 16.657Z" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

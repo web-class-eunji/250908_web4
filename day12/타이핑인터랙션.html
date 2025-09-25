@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>타이핑인터랙션</title>
+    <style>
+        body {
+            background: rgb(121, 195, 255);
+        }
+
+        #typing {
+            font-size: 72px;
+            font-weight: 900;
+            color: rgb(52, 108, 155);
+            margin: 0 350px;
+            width: fit-content;
+            transform: translateY(450px);
+        }
+    </style>
+</head>
+<body>
+    <div id="typing">
+        <!-- WECOME TO MY PORTFOLIO -->
+    </div>
+
+
+    <script>
+        /*
+        배열 texts를 만들어서
+        WECOME TO MY PORTFOLIO
+        저의 포트폴리오에 오신것을 환영합니다.
+        저는 강아지를 키웁니다.
+        ENJOY MY CONTENT
+        */
+
+        const texts=[
+            "WECOME TO MY PORTFOLIO", //22
+            "저의 포트폴리오에 오신것을 환영합니다.",
+            "저는 강아지를 키웁니다.",
+            "ENJOY MY CONTENT"
+        ]
+
+        const typingElement = document.getElementById("typing");
+        let textIndex = 0; // 현재 타이핑중인 문장의 순서 
+        let charIndex = 0; // 현재 타이핑중인 글자의 순서
+
+        const typing = ()=>{
+            if(charIndex < texts[textIndex].length){
+                console.log(texts[textIndex].length);
+                typingElement.textContent += texts[textIndex][charIndex];
+                charIndex++;
+                setTimeout( typing,150);
+            }else{
+                setTimeout(()=>{
+                    typingElement.textContent="";
+                    charIndex = 0;
+                    textIndex=(textIndex + 1) % texts.length;
+                    typing();
+                },1000);
+            }
+        }
+
+        typing();
+
+    </script>
+</body>
+</html>
