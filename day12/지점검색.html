@@ -95,6 +95,52 @@
             </div>
         </div>
     </section>
+
+    <script>
+        const inputText = document.getElementById("input_text");
+        const searchBtn = document.querySelector(".search_icon");
+
+        searchBtn.disabled = true;
+        //disabled : 따로 만든 변수X HTMl요소의 속성 ( button / input )
+        searchBtn.style.opacity = 0.3;
+
+        inputText.addEventListener("input",()=>{
+            //"input" : 글자를 입력하거나 지우거나 복사하거나 붙여넣기 하거나 자동완성하거나 input에 들어온 이벤트를 받아오는 것
+
+            if(inputText.value.trim() !== ""){
+                // " " : 눈에 보이진 않지만 공백이 존재함 ( 값은 들어있음 )
+                // trim : 입력한 문자의 공백을 제거 -> "    강  남  " (강남)
+                searchBtn.disabled = false; // input에 어떤 값이 들어왔다면 disabled(비활성화)속성을 false로 바꾸어 꺼줌
+                searchBtn.style.opacity = 1;
+            }else {
+                // 만약 input에 들어온 value가 빈 값이라면 그대로 비활성화 유지 
+                searchBtn.disabled = true;
+                searchBtn.style.opacity = 0.3;
+            }
+        });
+
+
+        searchBtn.addEventListener("click",()=>{
+            if(inputText.value.trim() !== "") {
+                input();
+            }
+        });
+
+        window.addEventListener("keyup",(e)=>{
+            if(e.key === "Enter" && document.activeElement === inputText && inputText.value.trim() !== ""){
+                input();
+            }
+        });
+
+        function input(){
+            const query = encodeURIComponent("텍사스로드하우스 " + inputText.value.trim());
+            //encodeURIComponent : 
+
+            window.open("https://www.google.co.kr/maps/search/" + query + "/data=!3m1!4b1");
+        }
+
+
+    </script>
 </body>
 
 </html>

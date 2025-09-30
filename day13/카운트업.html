@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카운트업</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgb(255, 164, 163);
+            color: #fff;
+            height: 3000px;
+        }
+
+        .counter_section {
+            display: flex;
+            justify-content: center;
+            gap: 100px;
+            margin-top: 1000px;
+        }
+
+        .counter_box {
+            text-align: center;
+        }
+
+        .number {
+            font-size: 60px;
+        }
+
+        .label {
+            font-size: 20px;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="counter_section">
+        <div class="counter_box">
+            <div class="number" data-target="3000">0</div>
+            <div class="label">엽떡</div>
+        </div>
+        <div class="counter_box">
+            <div class="number" data-target="150">0</div>
+            <div class="label">자장면</div>
+        </div>
+        <div class="counter_box">
+            <div class="number" data-target="98">0</div>
+            <div class="label">닭가슴살</div>
+        </div>
+    </section>
+
+    <script>
+        const counters = document.querySelectorAll(".number");
+        console.log(counters);
+
+        function animateCounter(counter){
+            counter.innerText = '0';
+            const target =+ counter.getAttribute('data-target');
+            //getAttribute : data-target안에 있는 값을 문자로 가져온다.
+            // 1500 -> "1500"
+
+            let current = 0;
+
+            const update = ()=>{
+                const increment = target / 100;
+                // target = 1500 (increment = 15)
+                // 5 / 9 / 1500 어떤 수를 작성하던 100등분으로 나눠서 100번 증가하게 만들것
+                // 모든 숫자는 100번 증가할테니 애니메이션에 속도 차이가 없어질것
+
+                if(current < target){
+                    current += increment;
+                    // 0 = 15 -> 30 -> 45 -> 60 ...1500
+                    counter.innerText = Math.ceil(current);
+                    requestAnimationFrame(update);
+                    //requestAnimationFrame(update) 0 -> 15
+                    //requestAnimationFrame(update) 15 -> 30
+                }else{
+                    counter.innerText = target.toLocaleString();
+                }
+            };
+
+            update();
+        }
+
+        const observer = new IntersectionObserver(entries => {
+            //IntersectionObserver : 브라우저(뷰포트)나 특정 부모요소를 기준으로 대상요소가 나타나타게 해줌
+            //entries : 감시중인 요소에 변화가 생겼을 때 변화가 생긴 요소들을 배열로 보관하는 장소
+
+            entries.forEach(entry => {
+                // 변화가 생겨 엔트리스에 배열로 들어온 요소들을 엔트리라는 이름으로 접근하겠다.
+                if(entry.isIntersecting){
+                    // isIntersecting : 감시중인 요소가 화면에 보이는가? 를 true/false 로알려준다.
+                    // 보이면 true / 안 보이면 false
+                    animateCounter(entry.target);
+                    // 변화가 생긴 요소의 entry의 target값을 가져와ㅑ서 animateCounter의 매개변수로 넘긴다.
+                }
+                
+            });
+        },{
+            threshold : 0.6,
+            // 요소가 뷰포트 기준으로 얼마나 보여야 숫자 증가를 실행할지 정하는 값
+            // 0.6 -> 60%
+        });
+
+        counters.forEach(counter =>{
+            observer.observe(counter);
+            // .number3개중 일부가 새로 화면에 들어오거나 화면 밖으로 나가게 되면 엔트리스는 변화를 감지하고 변화가 생긴 요소들을 보관 엔트리스에 보관된 변화가 생긴 각각의 요소들은 엔트리 라는 이름으로 엔트리스의 개체로 들어간다.
+        });
+    </script>
+</body>
+</html>
