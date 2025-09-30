@@ -4,16 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>탭메뉴</title>
+    <style>
+        .tab_section {
+            position: relative;
+            width: 1000px;
+            margin: 50px 0 0 50px;
+        }
+
+        ul {
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tab {
+            width: 100px;
+            list-style: none;
+            height: 35px;
+            background-color: skyblue;
+            padding: 10px 20px;
+            text-align: center;
+            line-height: 35px;
+            border-radius: 20px 20px 0 0;
+            color: rgb(75, 123, 142);
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background-color: rgb(126, 178, 198);
+            color: rgb(41, 73, 85);
+        }
+
+        .tab_content {
+            background-color: rgb(126, 178, 198);
+            position: absolute;
+            top: 55px;
+            left: 0;
+            border-radius: 0 20px 20px 20px;
+            padding: 30px;
+            display: none;
+        }
+
+        .tab_content.active {
+            display: block;
+        }
+
+
+    </style>
 </head>
 <body>
     <section class="tab_section">
         <ul>
-            <li class="tab" data-tab="1">tab1</li>
+            <li class="tab active" data-tab="1">tab1</li>
             <li class="tab" data-tab="2">tab2</li>
             <li class="tab" data-tab="3">tab3</li>
         </ul>
 
-        <div id="tab_1" class="tab_content">
+        <div id="tab_1" class="tab_content active">
             <p>
                 첫번째 탭입니다.
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia labore, a ullam, excepturi ipsam eos ad minus dolores voluptates ut odio porro reprehenderit? Accusamus cumque fuga odio. Odit, voluptatum facere? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia labore, a ullam, excepturi ipsam eos ad minus dolores voluptates ut odio porro reprehenderit? Accusamus cumque fuga odio. Odit, voluptatum facere?
@@ -36,7 +83,33 @@
         </div>
     </section>
     <script>
+        // 쿼리셀렉터 all 을 사용하여 tab과 tab_content를 가져온 후
+        // forEach를 사용하여 각각의 탭을 클릭했을 때~ 라는 코드 작성하기!
+        const tabs = document.querySelectorAll(".tab");
+        const tabContent = document.querySelectorAll(".tab_content");
 
+        console.log(tabs);
+        console.log(tabContent);
+
+        tabs.forEach(tab => {
+            /*
+            forEach(item,index,array =>{
+                item : 현재 순회중인 배열의 요소 ( 필수 : tab )
+                index : 현재 요소의 인덱스 ( 선택적 작성 )
+                array : 현재 순회중인 배열 자체 (선택적 작성)
+            });
+            */
+            tab.addEventListener("click", ()=>{
+                tabs.forEach(t => t.classList.remove("active"));
+                tabContent.forEach(tc => tc.classList.remove("active"));
+                tab.classList.add("active");
+                document.getElementById('tab_'+tab.dataset.tab).classList.add("active");
+                // dataset : data-tab 이라고 작성해준 숫자들을 가져옴
+                // 맨 앞에 tab은 tabs를 forEach로 돌고있는데 그 요소들을 하나씩 선택할 수 있다.
+                // 즉 클릭된 tab에 들어있는 data-tab을 dataset으로 뽑아와서 클릭된 탭에 active 라는 클래스를 붙이겠다는 뜻
+            });
+
+        });
     </script>
 </body>
 </html>
