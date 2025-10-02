@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>풀페이지</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .section {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            font-size: 50px;
+            align-items: center;
+        }
+
+        .section:nth-child(1){
+            background: skyblue;
+        }
+        .section:nth-child(2){
+            background: rgb(255, 185, 220);
+        }
+        .section:nth-child(3){
+            background: rgb(228, 235, 135);
+        }
+        .section:nth-child(4){
+            background: rgb(255, 226, 182);
+        }
+        .section:nth-child(5){
+            background: rgb(180, 206, 255);
+        }
+        .section:nth-child(6){
+            background: rgb(163, 235, 135);
+        }
+        .section:nth-child(7){
+            background: rgb(225, 135, 235);
+        }
+        .section:nth-child(8){
+            background: rgb(136, 207, 223);
+        }
+
+        .menu {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            list-style: none
+        }
+
+        .menu_item {
+            margin: 16px 0;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="fullpage">
+        <section class="section">
+            section1
+        </section>
+        <section class="section">
+            section2
+        </section>
+        <section class="section">
+            section3
+        </section>
+        <section class="section">
+            section4
+        </section>
+        <section class="section">
+            section5
+        </section>
+        <section class="section">
+            section6
+        </section>
+        <section class="section">
+            section7
+        </section>
+        <section class="section">
+            section8
+        </section>
+    </div>
+
+    <ul class="menu" id="menu">
+        <li class="menu_item" data-index="1">
+            section1
+        </li>
+        <li class="menu_item" data-index="2">
+            section2
+        </li>
+        <li class="menu_item" data-index="3">
+            section3
+        </li>
+        <li class="menu_item" data-index="4">
+            section4
+        </li>
+        <li class="menu_item" data-index="5">
+            section5
+        </li>
+        <li class="menu_item" data-index="6">
+            section6
+        </li>
+        <li class="menu_item" data-index="7">
+            section7
+        </li>
+        <li class="menu_item" data-index="8">
+            section8
+        </li>
+    </ul>
+    <script>
+        const sections = document.querySelectorAll(".section");
+        console.log(sections);
+        const menuItems = document.querySelectorAll(".menu_item");
+        const totalSections = sections.length; //8
+        let isScrolling = false; // 현재 스크롤중인지 여부를 나타내는 변수
+        let currentIndexSection = 0; // 현재 보여지고 있는 section의 index 번호
+
+        function handleScroll(event){
+            if(isScrolling) return;
+
+            isScrolling = true;
+
+            if(event.deltaY > 0){
+                //event.deltaY : 마우스 휠을 위로 올리면 음수, 밑으로 내리면 양수가 들어감
+                currentIndexSection = Math.min(currentIndexSection + 1,totalSections-1);
+            }else {
+                currentIndexSection = Math.max(currentIndexSection - 1,0);
+            }
+
+            sections[currentIndexSection].scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+            setTimeout(()=>{
+                isScrolling = false;
+            },1000);
+        }
+    </script>
+</body>
+</html>
